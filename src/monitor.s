@@ -20,7 +20,9 @@
     vdp_data = $BE
     vdp_reg = $BF
 
-    cursor = $0800
+    curs_adr = $0800
+    curs_row = $00
+    curs_col = $00
 
     jr main
 
@@ -60,6 +62,9 @@ loop:
 pull_key:
     cp c
     jr z,done_keys
+    ld h,$80
+    ld l,kb_rd
+    ld d,(hl)
     call print_char
     inc a
     jr pull_key
