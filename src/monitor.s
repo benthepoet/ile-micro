@@ -13,6 +13,10 @@
     .BANK 0 SLOT 0
     .ORGA $0000
 
+    kb_bf = $8000
+    kb_rd = $8100
+    kb_wr = $8101
+
     vdp_data = $BE
     vdp_reg = $BF
     
@@ -54,7 +58,15 @@ main:
     
     ei
     
-loop:   
+loop:
+    di
+    ld bc,kb_rd
+    ld a,b
+pull_key:   
+    cp c
+    inc a
+    jr nz,pull_key
+    ei
     halt
     jr loop
     
