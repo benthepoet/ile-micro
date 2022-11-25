@@ -9,7 +9,7 @@
     BANKSIZE $8000
     BANKS 1
     .ENDRO
-    
+
     .BANK 0 SLOT 0
     .ORGA $0000
 
@@ -19,19 +19,19 @@
 
     vdp_data = $BE
     vdp_reg = $BF
-    
+
     jr main
 
-vbl:    
+vbl:
     .org $0038
     in a,(vdp_reg)
     ei
     reti
-    
+
 main:
     di
     im 1
-    
+
     ld bc,$0200
     call set_reg
 
@@ -52,24 +52,30 @@ main:
 
     ld bc,$0306
     call set_reg
-    
+
     ld bc,$0407
     call set_reg
-    
+
     ei
-    
+
 loop:
     di
     ld bc,kb_rd
     ld a,b
-pull_key:   
+pull_key:
     cp c
+    jr z,done_keys
+    call print_char
     inc a
-    jr nz,pull_key
+    jr pull_key
+done_keys:
     ei
     halt
     jr loop
-    
+
+print_char:
+    rts
+
 set_reg:
     push af
     ld a,b
