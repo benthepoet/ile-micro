@@ -20,6 +20,8 @@
     vdp_data = $BE
     vdp_reg = $BF
 
+    cursor = $0800
+
     jr main
 
 vbl:
@@ -32,28 +34,21 @@ main:
     di
     im 1
 
-    ld bc,$0200
+; Initialize text mode
+
+    ld bc,$0000
     call set_reg
 
-    ld bc,$e201
+    ld bc,$d001
     call set_reg
 
-    ld bc,$0e02
-    call set_reg
-
-    ld bc,$9f03
+    ld bc,$0202
     call set_reg
 
     ld bc,$0004
     call set_reg
 
-    ld bc,$7605
-    call set_reg
-
-    ld bc,$0306
-    call set_reg
-
-    ld bc,$0407
+    ld bc,$f507
     call set_reg
 
     ei
