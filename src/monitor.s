@@ -62,8 +62,7 @@ loop:
 pull_key:
     cp c
     jr z,done_keys
-    ld h,$80
-    ld l,kb_rd
+    ld hl,kb_rd
     ld d,(hl)
     call print_char
     inc a
@@ -74,7 +73,7 @@ done_keys:
     jr loop
 
 print_char:
-    rts
+    ret
 
 set_reg:
     push af
